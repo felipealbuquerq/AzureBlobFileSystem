@@ -263,10 +263,7 @@ namespace AzureBlobFileSystem
         {
             var container = EnsurePathIsRelativeAndEnsureContainer(ref path);
 
-            if (container.BlobExists(path))
-            {
-                throw new ArgumentException("File " + path + " already exists");
-            }
+            container.EnsureBlobDoesNotExist(path);
 
             var blob = container.GetBlockBlobReference(path);
             var contentType = GetContentType(path);
